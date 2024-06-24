@@ -37,7 +37,7 @@ $stmt_update->execute();
         if ($conexao->affected_rows > 0) {
             echo "Avaliação finalizada com sucesso.";
             sleep(5);
-            View::abrir('../home.php');
+            View::abrir('../pages/home.php');
         } else {
             echo "Erro ao inserir intervenções na avaliação.";
         }
