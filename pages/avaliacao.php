@@ -1,9 +1,8 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
-
+    include ('../verificar_session.php');
+    verificar('../view/view.php', 'login.php');
+    require_once ('../view/view.php');
+    require_once ('../view/header.html');
 ?>
 
 <body>
@@ -33,6 +32,6 @@ require_once ('../view/header.html');
         });
     </script>
 
-    <?php
-    require_once ('../view/footer.html');
-    ?>
+    <?php require_once ('../view/footer.html'); ?>
+
+</body>

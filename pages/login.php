@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de login</title>
+
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -20,9 +21,7 @@
             width: 200px;
         }
 
-        h1 {
-            text-align: center;
-        }
+        h1 { text-align: center; }
 
         div {
             background-color: #0D0D0D;
@@ -64,6 +63,7 @@
 </head>
 
 <body>
+
     <img src="img/logo.png" alt="">
     <div>
         <h1>Login</h1>
@@ -74,10 +74,9 @@
         <button onclick="enviarDados()">Entrar</button>
     </div>
 
-
     <script>
         function enviarDados() {
-            // Captura os valores dos inputs
+            
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
 
@@ -97,15 +96,10 @@
                     if (xhr.responseText === 'true') {
                         window.location.href = "home.php";
                     } else alert(xhr.responseText);
-                } else {
-
                 }
             };
-
-            // Envia a requisição com os dados
             xhr.send(formData);
         }
     </script>
 </body>
-
 </html>

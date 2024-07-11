@@ -1,9 +1,9 @@
-
-    <?php
+<?php
     include('../verificar_session.php');
-    verificar('../view/view.php', 'login.php');
     require_once('../view/view.php');
     require_once('../view/header.html');
+
+    verificar('../view/view.php', 'login.php');
 ?>
     <main>
         <div class="dados">

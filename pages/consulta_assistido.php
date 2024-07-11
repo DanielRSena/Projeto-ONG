@@ -1,47 +1,38 @@
 <?php
-include ('../verificar_session.php');
-include('../consulta/consulta_assistido.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
-require_once('../database.php');
 
+  include ('../verificar_session.php');
+  include('../consulta/consulta_assistido.php');
+  require_once ('../view/view.php');
+  require_once ('../view/header.html');
+  require_once('../database.php');
+  verificar('../view/view.php', 'login.php');
 
-$banco_dados = new Database;
-$conexao = $banco_dados->abrir_conexao();
+  $banco_dados = new Database;
+  $conexao = $banco_dados->abrir_conexao();
 
-if ($conexao !== false) {
-    $usuario = $_SESSION['user'];
+  if ($conexao !== false) {
 
-    // Consulta SQL
-    $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
+      $usuario = $_SESSION['user'];
 
-    // Preparando a declaração
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("s", $usuario);
+      $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
 
-    // Executando a consulta
-    $stmt->execute();
+      // Preparando a declaração
+      $stmt = $conexao->prepare($sql);
+      $stmt->bind_param("s", $usuario);
 
-    // Obtendo resultados
-    $result = $stmt->get_result();
+      $stmt->execute(); // Executando a consulta
 
-    // Verificando se encontrou algum resultado
-    if ($result->num_rows > 0) {
-        // Usuário possui a coluna admin como TRUE
-        $admin = true;
-    } else {
-        // Usuário não é administrador
-        $admin = false;
-    }
+      $result = $stmt->get_result();
 
-    // Fechando a declaração e a conexão
-    $stmt->close();
-    $conexao->close();
-} else
-    View::alert("Erro ao conectar com banco de dados");
+      if ($result->num_rows > 0) $admin = true;
+      else $admin = false;
+
+      // Fechando a declaração e a conexão
+      $stmt->close();
+      $conexao->close();
+  } 
+  else View::alert("Erro ao conectar com banco de dados");
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -54,7 +45,6 @@ if ($conexao !== false) {
  <link rel="stylesheet" href="../view/style.css">
  
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
-  
 </head>
 
 <body>
@@ -67,7 +57,6 @@ if ($conexao !== false) {
   <h1>Assistidos</h1>
 
   <?php $assistidos = mostrarAssistidos(); ?>
-
 
   <div class="tableCentro">
     <table>
@@ -89,17 +78,13 @@ if ($conexao !== false) {
           echo "<td><a onclick='return confirm(\"Tem certeza que deseja deletar?\")' href='../deletes/deletar_assistido.php?cpf=" . $assistido['cpf'] . "'><i class='bi bi-trash'> &nbsp; Excluir</i></a></td>";
           echo "</tr>";
         }
-      } else {
-        echo "Nenhum resultado encontrado.";
-      }
+      } 
+      else echo "Nenhum resultado encontrado.";
       ?>
     </table>
   </div>
 
-  <?php
-    require_once ('../view/footer.html');
-    ?>
+  <?php require_once ('../view/footer.html');?>
 
 </body>
-
 </html>

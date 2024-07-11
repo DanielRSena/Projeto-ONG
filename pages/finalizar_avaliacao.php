@@ -1,20 +1,20 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
-require_once ('../database.php'); // Arquivo para conectar ao banco de dados
+    include ('../verificar_session.php');
+    require_once ('../view/view.php');
+    require_once ('../view/header.html');
+    require_once ('../database.php');
+    verificar('../view/view.php', 'login.php');
 
-$banco_dados = new Database;
-$conexao = $banco_dados->abrir_conexao();
+    $banco_dados = new Database;
+    $conexao = $banco_dados->abrir_conexao();
 
-$id_avaliacao = $_POST['id_avaliacao_selecionada'];
+    $id_avaliacao = $_POST['id_avaliacao_selecionada'];
 
-// Feche a conexão após a obtenção do ID de avaliação
-$conexao->close();
+    $conexao->close();
 ?>
 
 <style>
+
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -53,9 +53,7 @@ $conexao->close();
         color: #666;
     }
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+    .form-group { margin-bottom: 20px; }
 
     .form-group label {
         font-weight: bold;
@@ -63,9 +61,7 @@ $conexao->close();
         margin-bottom: 5px;
     }
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-group input, .form-group select, .form-group textarea {
         width: 100%;
         padding: 10px;
         border-radius: 4px;
@@ -85,9 +81,7 @@ $conexao->close();
         transition: background-color 0.3s;
     }
 
-    input[type="submit"]:hover {
-        background-color: #218838;
-    }
+    input[type="submit"]:hover { background-color: #218838; }
 
     .questao-numero {
         position: absolute;
@@ -106,29 +100,18 @@ $conexao->close();
         margin-bottom: 20px;
     }
 
-    table,
-    th,
-    td {
-        border: 1px solid #ccc;
-    }
+    table, th, td { border: 1px solid #ccc; }
 
-    th,
-    td {
+    th, td {
         padding: 10px;
         text-align: left;
     }
 
-    th {
-        background-color: #f4f4f4;
-    }
+    th { background-color: #f4f4f4; }
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
+    tr:nth-child(even) { background-color: #f9f9f9; }
 
-    tr:hover {
-        background-color: #f1f1f1;
-    }
+    tr:hover { background-color: #f1f1f1; }
 
     .btn-visualizar {
         display: block;
@@ -144,9 +127,7 @@ $conexao->close();
         transition: background-color 0.3s;
     }
 
-    .btn-visualizar:hover {
-        background-color: #0056b3;
-    }
+    .btn-visualizar:hover { background-color: #0056b3; }
 </style>
 
 <body>
@@ -156,10 +137,7 @@ $conexao->close();
         <div class="section">
             <div class="section-title">Visualizar o teste escolhido:</div>
 
-            <!-- Exibir informações do teste selecionado -->
-            <?php
-            echo '<p>ID do Teste Selecionado: ' . htmlspecialchars($id_avaliacao) . '</p>';
-            ?>
+            <?php echo '<p>ID do Teste Selecionado: ' . htmlspecialchars($id_avaliacao) . '</p>'; ?>
 
             <!-- Botão para visualizar o teste -->
             <a href="../avaliacao/visualizar_teste.php?id_avaliacao=<?php echo $id_avaliacao; ?>" class="btn-visualizar"
@@ -174,22 +152,22 @@ $conexao->close();
             <form id="formAdicionar">
                 <div class="form-group">
                     <label for="area_conhecimento">Área de Conhecimento:</label>
-                    <select id="area_conhecimento" name="area_conhecimento" onchange="carregarObjetivos()">
-                        <!-- Options serão preenchidos dinamicamente com JavaScript -->
+                    <select 
+                        id="area_conhecimento" name="area_conhecimento" onchange="carregarObjetivos()">
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="objetivo_especifico">Objetivo Específico:</label>
-                    <select id="objetivo_especifico" name="objetivo_especifico" onchange="carregarIntervencoes()">
-                        <!-- Options serão preenchidos dinamicamente com JavaScript -->
+                    <select 
+                        id="objetivo_especifico" name="objetivo_especifico" onchange="carregarIntervencoes()">
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="intervencao">Intervenção:</label>
-                    <select id="intervencao" name="intervencao">
-                        <!-- Options serão preenchidos dinamicamente com JavaScript -->
+                    <select 
+                        id="intervencao" name="intervencao">
                     </select>
                 </div>
 
@@ -209,9 +187,7 @@ $conexao->close();
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Linhas serão adicionadas dinamicamente com JavaScript -->
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
 
@@ -234,7 +210,6 @@ $conexao->close();
 
                 <!-- Campos ocultos para enviar dados da tabela de intervenções -->
                 <input type="hidden" id="tabelaIntervencoes" name="tabelaIntervencoes">
-
                 <input type="hidden" name="id_avaliacao_selecionada" value="<?php echo $id_avaliacao; ?>">
 
                 <input type="submit" value="Finalizar avaliação">
@@ -352,6 +327,4 @@ $conexao->close();
     </script>
 </body>
 
-<?php
-require_once ('../view/footer.html');
-?>
+<?php require_once ('../view/footer.html'); ?>

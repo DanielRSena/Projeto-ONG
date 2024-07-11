@@ -1,13 +1,11 @@
 <?php
+    function verificar($endereco_view, $endereco_login) {
 
-function verificar($endereco_view, $endereco_login)
-{
-    require_once($endereco_view);
+        require_once($endereco_view);
 
-    session_start();
+        session_start();
 
-    if (!isset($_SESSION['logado']) || $_SESSION["logado"] != TRUE) {
-        View::abrir($endereco_login);
+        if (!isset($_SESSION['logado']) || $_SESSION["logado"] != TRUE)
+            View::abrir($endereco_login);
     }
-
-}
+?>

@@ -1,54 +1,38 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
+    include ('../verificar_session.php');
+    require_once ('../view/view.php');
+    require_once ('../view/header.html');
+    require_once('../database.php');
+    verificar('../view/view.php', 'login.php');
 
-require_once('../database.php');
+    $banco_dados = new Database;
+    $conexao = $banco_dados->abrir_conexao();
 
+    if ($conexao !== false) {
+        $usuario = $_SESSION['user'];
 
-$banco_dados = new Database;
-$conexao = $banco_dados->abrir_conexao();
+        $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
 
-if ($conexao !== false) {
-    $usuario = $_SESSION['user'];
+        // Preparando a declaração
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param("s", $usuario);
 
-    // Consulta SQL
-    $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
+        $stmt->execute(); // Executando a consulta
 
-    // Preparando a declaração
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("s", $usuario);
+        $result = $stmt->get_result(); // Obtendo resultados
 
-    // Executando a consulta
-    $stmt->execute();
+        // Verificando se encontrou algum resultado
+        if ($result->num_rows > 0) $admin = true;
+        else $admin = false;
+        
+        // Fechando a declaração e a conexão
+        $stmt->close();
+        $conexao->close();
 
-    // Obtendo resultados
-    $result = $stmt->get_result();
-
-    // Verificando se encontrou algum resultado
-    if ($result->num_rows > 0) {
-        // Usuário possui a coluna admin como TRUE
-        $admin = true;
-    } else {
-        // Usuário não é administrador
-        $admin = false;
-    }
-
-    // Fechando a declaração e a conexão
-    $stmt->close();
-    $conexao->close();
-
-    
-    if(!$admin){
-        View::abrir("../home.php");
-    }
-
-} else
-    View::alert("Erro ao conectar com banco de dados");
-
-
-
+        
+        if(!$admin) View::abrir("../home.php");
+    } 
+    else View::alert("Erro ao conectar com banco de dados");
 ?>
 
 <main>
@@ -75,18 +59,13 @@ if ($conexao !== false) {
                 <input type="radio" id="admin-nao" name="admin" value=0 required>
                 <label for="admin-nao">Não</label>
             </div>
+
             <div class="button-container">
                 <button type="submit" class="button">Cadastrar</button>
             </div>
+            
         </form>
     </div>
 </main>
 
-
-<script>
-
-</script>
-
-<?php
-require_once ('../view/footer.html');
-?>
+<?php require_once ('../view/footer.html'); ?>

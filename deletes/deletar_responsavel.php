@@ -1,8 +1,11 @@
 <?php
     if (isset($_GET['cpf'])) {
+
         $con = mysqli_connect("localhost", "root", "", "gemtes") or die("Falha na conexão");
+        
         $cpf = $_GET['cpf'];
         $query = "DELETE FROM responsáveis WHERE cpf = '$cpf'";
+
         mysqli_query($con, $query);
         header("Location: ../pages/consulta_responsavel.php");
     } 

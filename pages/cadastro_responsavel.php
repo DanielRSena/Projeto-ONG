@@ -1,30 +1,26 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
+    include ('../verificar_session.php');
+    require_once ('../view/view.php');
+    require_once ('../view/header.html');
+    verificar('../view/view.php', 'login.php');
 ?>
 
 <style>
     #nivel-escolaridade {
         width: 100%;
-        /* Faz a caixa de seleção ocupar 100% da largura disponível */
         padding: 6px;
-        /* Adiciona preenchimento interno para melhorar a aparência */
         font-size: 16px;
-        /* Tamanho da fonte */
         border: 1px solid #ccc;
-        /* Borda fina cinza */
         border-radius: 3px;
-        /* Borda arredondada */
         box-sizing: border-box;
-        /* Garante que o preenchimento e a borda não aumentem o tamanho total */
     }
 </style>
 
 <main>
     <div class="dados" id='container'>
+
         <h2>Cadastro de responsável</h2>
+
         <form action="../cadastro/processar_cadastro_responsavel.php" method="POST">
             <label for="nome-responsavel">Nome:</label>
             <input type="text" id="nome-responsavel" name="nome-responsavel" required>
@@ -33,7 +29,6 @@ require_once ('../view/header.html');
             <label for="email-responsavel">E-mail:</label>
             <input type="text" id="email-responsavel" name="email-responsavel" required>
 
-            <!-- Dropdown para nível de escolaridade -->
             <label for="nivel-escolaridade">Nível de escolaridade:</label>
             <select id="nivel-escolaridade" name="nivel-escolaridade" required>
                 <option value="Sem escolaridade">Sem escolaridade</option>
@@ -49,8 +44,6 @@ require_once ('../view/header.html');
                 <option value="Ensino Superior Completo">Ensino Superior Completo</option>
             </select>
 
-            <!-- Adicione os demais campos necessários para o registro do responsável -->
-
             <div class="button-container">
                 <button type="submit" class="button">Inserir novo responsável</button>
             </div>
@@ -58,26 +51,21 @@ require_once ('../view/header.html');
     </div>
 </main>
 
-
 <script>
     function formatarCPF(cpf, campo) {
-        // Remove caracteres não numéricos
-        cpf = cpf.replace(/\D/g, '');
+       
+        cpf = cpf.replace(/\D/g, '');  // Remove caracteres não numéricos
 
-        // Limita o tamanho máximo do CPF para 11 dígitos
-        if (cpf.length > 11) {
-            cpf = cpf.slice(0, 11);
-        }
+        if (cpf.length > 11) 
+            cpf = cpf.slice(0, 11); // Limita o tamanho máximo do CPF para 11 dígitos
 
         // Aplica a máscara
         cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
         cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
         cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 
-        // Define o valor formatado no campo correto
-        if (campo === 'cpf-responsavel') {
-            document.getElementById('cpf-responsavel').value = cpf;
-        }
+        if (campo === 'cpf-responsavel') 
+            document.getElementById('cpf-responsavel').value = cpf; // Define o valor formatado no campo correto
 
         return cpf;
     }
@@ -88,6 +76,4 @@ require_once ('../view/header.html');
     });
 </script>
 
-<?php
-require_once ('../view/footer.html');
-?>
+<?php require_once ('../view/footer.html'); ?>

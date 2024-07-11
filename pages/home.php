@@ -1,44 +1,35 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
-require_once('../database.php');
+    include ('../verificar_session.php');
+    require_once ('../view/view.php');
+    require_once ('../view/header.html');
+    require_once('../database.php');
+    verificar('../view/view.php', 'login.php');
 
-$banco_dados = new Database;
-$conexao = $banco_dados->abrir_conexao();
+    $banco_dados = new Database;
+    $conexao = $banco_dados->abrir_conexao();
 
-if ($conexao !== false) {
-    $usuario = $_SESSION['user'];
+    if ($conexao !== false) {
+        $usuario = $_SESSION['user'];
 
-    // Consulta SQL
-    $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
+        $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
 
-    // Preparando a declaração
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("s", $usuario);
+        // Preparando a declaração
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param("s", $usuario);
+        
+        $stmt->execute(); // Executando a consulta
+        
+        $result = $stmt->get_result(); // Obtendo resultados
 
-    // Executando a consulta
-    $stmt->execute();
+        // Verificando se encontrou algum resultado
+        if ($result->num_rows > 0) $admin = true;
+        else $admin = false;
 
-    // Obtendo resultados
-    $result = $stmt->get_result();
-
-    // Verificando se encontrou algum resultado
-    if ($result->num_rows > 0) {
-        // Usuário possui a coluna admin como TRUE
-        $admin = true;
-    } else {
-        // Usuário não é administrador
-        $admin = false;
-    }
-
-    // Fechando a declaração e a conexão
-    $stmt->close();
-    $conexao->close();
-} else
-    View::alert("Erro ao conectar com banco de dados");
-
+        // Fechando a declaração e a conexão
+        $stmt->close();
+        $conexao->close();
+    } 
+    else View::alert("Erro ao conectar com banco de dados");
 ?>
 
 <body>
@@ -59,24 +50,19 @@ if ($conexao !== false) {
 
         botao1.addEventListener('click', function () {
             const url = 'cadastro.php';
-
             window.location.href = url;
         });
 
         botao2.addEventListener('click', function () {
             const url = 'consulta.php';
-
             window.location.href = url;
         });
 
         botao3.addEventListener('click', function () {
             const url = 'avaliacao.php';
-
             window.location.href = url;
         });
         
     </script>
 
-    <?php
-    require_once ('../view/footer.html');
-    ?>
+<?php require_once ('../view/footer.html'); ?>
