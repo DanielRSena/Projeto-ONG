@@ -7,8 +7,10 @@
     $conexao = $database->abrir_conexao();
 
     $cpf = $_GET['cpf'];
+    $entidade = $_GET['entidade'];
 
-    $sql = "SELECT foto FROM assistidos WHERE cpf = ?";
+    $sql = ($entidade == 'a')? "SELECT foto FROM assistidos WHERE cpf = ?" : "SELECT foto FROM psicopedagogos WHERE cpf = ?";
+
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("s", $cpf);
     $stmt->execute();

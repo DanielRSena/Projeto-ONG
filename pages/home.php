@@ -2,7 +2,6 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
 require_once('../database.php');
 
 $banco_dados = new Database;
@@ -41,8 +40,8 @@ if ($conexao !== false) {
 
 ?>
 
-<body>
-    <main>
+<?php require_once ('modelos/header.html'); ?>
+
         <h1>Tela inicial</h1>
         <h2 class="subtitle">O que você quer fazer?</h2>
         <div class="buttonGrande-container">
@@ -78,5 +77,5 @@ if ($conexao !== false) {
     </script>
 
     <?php
-    require_once ('../view/footer.html');
+    require_once ('modelos/footer.html');
     ?>

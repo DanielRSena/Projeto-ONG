@@ -3,9 +3,7 @@ include ('../verificar_session.php');
 include('../consulta/consulta_responsavel.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
 require_once('../database.php');
-
 
 $banco_dados = new Database;
 $conexao = $banco_dados->abrir_conexao();
@@ -42,27 +40,11 @@ if ($conexao !== false) {
     View::alert("Erro ao conectar com banco de dados");
 ?>
 
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../view/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
-
-</head>
-
-<body>
-
-  <br><br>
+<?php require_once('modelos/header.html'); ?>
 
   <h1>Responsáveis</h1>
 
   <?php $responsaveis = mostrarResponsaveis(); ?>
-
 
   <div class="tableCentro">
     <table>
@@ -92,10 +74,4 @@ if ($conexao !== false) {
     </table>
   </div>
 
-  <?php
-    require_once ('../view/footer.html');
-    ?>
-
-</body>
-
-</html>
+  <?php require_once ('modelos/footer.html'); ?>

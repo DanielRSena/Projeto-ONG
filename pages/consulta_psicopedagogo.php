@@ -3,7 +3,6 @@ include ('../verificar_session.php');
 include('../consulta/consulta_psicopedagogo.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
 require_once('../database.php');
 
 
@@ -42,53 +41,32 @@ if ($conexao !== false) {
     View::alert("Erro ao conectar com banco de dados");
 ?>
 
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../view/style.css">
-</head>
-
-<body>
-
-  <br><br>
+<?php require_once ('modelos/header.html'); ?>
 
   <h1>psicopedagogos</h1>
 
-  <?php $psicopedagogos = mostrarPsicopedagogo(); ?>
+<div class="container">
 
+  <?php $psicopedagogos = mostrarPsicopedagogo();
 
-  <div class="tableCentro">
-    <table>
-      <tr>
-      <th>Número de Registro</th>
-        <th>Nome</th>
-        <th>CPF</th>
-      </tr>
-      <?php
-      if (!empty($psicopedagogos)) {
-        foreach ($psicopedagogos as $psicopedagogo) {
-          echo "<tr>";
-          echo "<td>" . $psicopedagogo['num_registro'] . "</td>";
-          echo "<td>" . $psicopedagogo['nome'] . "</td>";
-          echo "<td>" . $psicopedagogo['cpf'] . "</td>";
-          echo "</tr>";
-        }
-      } else {
-        echo "Nenhum resultado encontrado.";
-      }
-      ?>
-    </table>
-  </div>
+  if (!empty($psicopedagogos)) {
+  foreach ($psicopedagogos as $psico) {
 
-  <?php
-    require_once ('../view/footer.html');
-    ?>
+    echo "<div class='divDados'>"; ?>
 
-</body>
+  <img src = "../mostrarImagem.php?cpf=<?php echo $psico['cpf'];?>&entidade=p" alt = 'Imagem extraída'> &nbsp;
 
-</html>
+    <?php  echo "<div><div>" . $psico['cpf'] . "</div> <br>";
+
+      echo "<div>" . $psico['nome']. "</div> <br>";
+
+    echo "<div>". $psico['num_registro'] . "</div> <br>";
+      echo "</div></div> <br><br>";
+
+  }
+} 
+else echo "Nenhum resultado encontrado.";
+
+  ?>
+
+  <?php require_once ('modelos/footer.html'); ?>

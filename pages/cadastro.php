@@ -1,64 +1,60 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
+    include ('../verificar_session.php');
+    verificar('../view/view.php', 'login.php');
+    require_once ('../view/view.php');
+    require_once('../database.php');
 
+    $banco_dados = new Database;
+    $conexao = $banco_dados->abrir_conexao();
 
-require_once('../database.php');
+    if ($conexao !== false) {
+        $usuario = $_SESSION['user'];
 
+        // Consulta SQL
+        $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
 
-$banco_dados = new Database;
-$conexao = $banco_dados->abrir_conexao();
+        // Preparando a declaração
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param("s", $usuario);
 
-if ($conexao !== false) {
-    $usuario = $_SESSION['user'];
+        // Executando a consulta
+        $stmt->execute();
 
-    // Consulta SQL
-    $sql = "SELECT * FROM usuários WHERE login = ? AND admin = TRUE";
+        // Obtendo resultados
+        $result = $stmt->get_result();
 
-    // Preparando a declaração
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("s", $usuario);
+        // Verificando se encontrou algum resultado
+        if ($result->num_rows > 0) {
+            // Usuário possui a coluna admin como TRUE
+            $admin = true;
+        } else {
+            // Usuário não é administrador
+            $admin = false;
+        }
 
-    // Executando a consulta
-    $stmt->execute();
-
-    // Obtendo resultados
-    $result = $stmt->get_result();
-
-    // Verificando se encontrou algum resultado
-    if ($result->num_rows > 0) {
-        // Usuário possui a coluna admin como TRUE
-        $admin = true;
-    } else {
-        // Usuário não é administrador
-        $admin = false;
-    }
-
-    // Fechando a declaração e a conexão
-    $stmt->close();
-    $conexao->close();
-} else
-    View::alert("Erro ao conectar com banco de dados");
+        // Fechando a declaração e a conexão
+        $stmt->close();
+        $conexao->close();
+    } else
+        View::alert("Erro ao conectar com banco de dados");
 ?>
 
+<?php require_once ('modelos/header.html'); ?>
 
-<body>
-    <main>
-        <h1>Cadastro</h1>
-        <h2 class="subtitle">Selecione o item que deseja cadastrar no sistema:</h2>
-        <div class="buttonGrande-container">
-            <button id="bt1" class="buttonGrande">Assistido</button>
-            <button id="bt2" class="buttonGrande">Responsável</button>
-            <?php
-            if($admin){
-                echo "<button id='bt3' class='buttonGrande'>Psicopedagogo</button>";
-                echo "<button id='bt4' class='buttonGrande'>Usuário</button>";
-            }
-            ?>
-        </div>
-    </main>
+<h1>Cadastro</h1>
+
+<h2 class="subtitle">Selecione o item que deseja cadastrar no sistema:</h2>
+
+<div class="buttonGrande-container">
+    <button id="bt1" class="buttonGrande">Assistido</button>
+    <button id="bt2" class="buttonGrande">Responsável</button>
+    <?php
+    if($admin){
+        echo "<button id='bt3' class='buttonGrande'>Psicopedagogo</button>";
+        echo "<button id='bt4' class='buttonGrande'>Usuário</button>";
+    }
+    ?>
+</div>
 
     <script>
         const botao1 = document.getElementById('bt1');
@@ -91,6 +87,4 @@ if ($conexao !== false) {
         });
     </script>
 
-    <?php
-    require_once ('../view/footer.html');
-    ?>
+    <?php require_once ('modelos/footer.html'); ?>

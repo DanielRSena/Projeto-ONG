@@ -1,24 +1,21 @@
 <?php
-include ('../verificar_session.php');
-verificar('../view/view.php', 'login.php');
-require_once ('../view/view.php');
-require_once ('../view/header.html');
-require_once ('../database.php'); // Arquivo para conectar ao banco de dados
+    include ('../verificar_session.php');
+    verificar('../view/view.php', 'login.php');
+    require_once ('../view/view.php');
+    require_once ('../database.php'); 
+    $banco_dados = new Database;
+    $conexao = $banco_dados->abrir_conexao();
 
-$banco_dados = new Database;
-$conexao = $banco_dados->abrir_conexao();
+    function formatarData($data) {
+        $data = date_create($data);
+        return date_format($data, 'd/m/Y');
+    }
 
-function formatarCPF($cpf) {
-    $cpf = preg_replace("/[^0-9]/", "", $cpf);
-    return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $cpf);
-}
-
-function formatarData($data) {
-    $data = date_create($data);
-    return date_format($data, 'd/m/Y');
-}
+    function formatarCPF($cpf) {
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $cpf);
+    }
 ?>
-
 
 <style>
     body {
@@ -117,7 +114,8 @@ function formatarData($data) {
     }
 </style>
 
-<body>
+<?php require_once ('modelos/header.html'); ?>
+
     <div class="container">
         <h1>Finalização da avaliação</h1>
         
@@ -175,18 +173,16 @@ function formatarData($data) {
                 }
 
                 $conexao->close();
+
                 ?>
             </div>
 
             <input type="submit" value="Continuar">
         </form>
     </div>
-</body>
 
-<script>
-    // Seu script JavaScript para formatação de CPFs
-</script>
+    
 
 <?php
-require_once ('../view/footer.html');
+require_once ('modelos/footer.html');
 ?>

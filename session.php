@@ -18,7 +18,7 @@ class Session
 
         if ($conexao !== false) {
             // Usando prepared statement para evitar SQL Injection
-            $query = "SELECT senha_hash FROM usuários WHERE login = ?";
+            $query = "SELECT senha FROM usuários WHERE login = ?";
             $stmt = mysqli_prepare($conexao, $query);
             mysqli_stmt_bind_param($stmt, "s", $username);
             mysqli_stmt_execute($stmt);

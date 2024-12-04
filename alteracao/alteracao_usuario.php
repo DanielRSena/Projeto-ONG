@@ -2,8 +2,6 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
-
 require_once('../database.php');
 
 
@@ -46,12 +44,9 @@ if ($conexao !== false) {
 
 } else
     View::alert("Erro ao conectar com banco de dados");
-
-
-
 ?>
 
-<main>
+<?php require_once('../pages/modelos/header.html'); ?>
 
 
     <div class="dados" id='container'>
@@ -86,8 +81,7 @@ if ($conexao !== false) {
             </div>
         </form>
     </div>
-</main>
 
 <?php
-    require_once ('../view/footer.html');
+    require_once ('../pages/modelos/footer.html');
 ?>

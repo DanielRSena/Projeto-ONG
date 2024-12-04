@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Preparar a consulta SQL para inserção
     $sql = "UPDATE usuários 
-            SET nome = :nome, senha_hash = :senhaHash, admin = :admin
+            SET nome = :nome, senha = :senha, admin = :admin
             WHERE login = :login";
 
     // Preparar e executar a declaração usando PDO
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Bind dos parâmetros
     $stmt->bindParam(':nome', $nomeUsuario);
-    $stmt->bindParam(':senhaHash', $senhaHash);
+    $stmt->bindParam(':senha', $senha);
     $stmt->bindParam(':admin', $admin);
     $stmt->bindParam(':login', $loginUsuario);
     

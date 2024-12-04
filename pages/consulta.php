@@ -2,9 +2,6 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
-
-
 require_once('../database.php');
 
 
@@ -43,9 +40,8 @@ if ($conexao !== false) {
     View::alert("Erro ao conectar com banco de dados");
 ?>
 
+<?php require_once ('modelos/header.html'); ?>
 
-<body>
-    <main>
         <h1>Consulta</h1>
         <h2 class="subtitle">Selecione o item que deseja consultar no sistema:</h2>
         <div class="buttonGrande-container">
@@ -59,7 +55,6 @@ if ($conexao !== false) {
             }
             ?>
         </div>
-    </main>
 
     <script>
         const botao1 = document.getElementById('bt1');
@@ -91,11 +86,8 @@ if ($conexao !== false) {
             window.location.href = url;
         });
 
-        
-
-        
     </script>
 
     <?php
-    require_once ('../view/footer.html');
+    require_once ('modelos/footer.html');
     ?>

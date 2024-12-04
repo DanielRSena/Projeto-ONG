@@ -2,129 +2,130 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
 ?>
 
+<?php require_once ('modelos/header.html'); ?>
+
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333; /* Cor preta para o texto dos enunciados */
-        }
+    
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333; /* Cor preta para o texto dos enunciados */
+}
 
-        .container {
-            width: 60%; /* Aumentei um pouco para melhorar a visualização */
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.container {
+    width: 60%; /* Aumentei um pouco para melhorar a visualização */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
 
-        .section {
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative; /* Para posicionamento relativo do número da questão */
-        }
+.section {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative; /* Para posicionamento relativo do número da questão */
+}
 
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 16px; /* Tamanho menor para a área de conhecimento */
-            color: #666; /* Cinza claro para o texto */
-        }
+.section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 16px; /* Tamanho menor para a área de conhecimento */
+    color: #666; /* Cinza claro para o texto */
+}
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.form-group {
+    margin-bottom: 20px;
+}
 
-        .form-group label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
 
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
 
-        .radio-group {
-            display: flex;
-            justify-content: flex-start;
-            margin-top: 8px;
-        }
+.radio-group {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 8px;
+}
 
-        .radio-group label {
-            flex-basis: 18%;
-            text-align: center;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            transition: background-color 0.3s;
-        }
+.radio-group label {
+    flex-basis: 18%;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s;
+}
 
-        .radio-group label:hover {
-            background-color: #f9f9f9;
-        }
+.radio-group label:hover {
+    background-color: #f9f9f9;
+}
 
-        .radio-group input[type="radio"] {
-            display: none;
-        }
+.radio-group input[type="radio"] {
+    display: none;
+}
 
-        .radio-group input[type="radio"]:checked+label {
-            background-color: #28a745;
-            color: white;
-            border-color: #28a745;
-        }
+.radio-group input[type="radio"]:checked+label {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
 
-        input[type="submit"] {
-            display: block;
-            width: 50%;
-            padding: 10px;
-            margin: 20px auto;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+input[type="submit"] {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    margin: 20px auto;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
+input[type="submit"]:hover {
+    background-color: #218838;
+}
 
-        /* Estilos para o número da questão */
-        .questao-numero {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: #ddd; /* Fundo cinza claro para o número da questão */
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-    </style>
+/* Estilos para o número da questão */
+.questao-numero {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ddd; /* Fundo cinza claro para o número da questão */
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-<body>
-<body>
-    <div class="container">
+</style>
+
+<div class="container">
         <h1>Aplicação de Teste</h1>
         
         <form method="POST" action="../avaliacao/processar_teste.php">
@@ -142,7 +143,8 @@ require_once ('../view/header.html');
 
                 <div class="form-group">
                     <label for="cpf_psicopedagogo">CPF do psicopedagogo:</label>
-                    <input type="text" id="cpf_psicopedagogo" name="cpf_psicopedagogo" required>
+                    <input type="text" id="cpf_psicopedagogo" name="cpf_psicopedagogo" value="<?php echo $_SESSION['user']?>" readonly>
+
                 </div>
             </div>
 
@@ -225,5 +227,5 @@ require_once ('../view/header.html');
     </script>
 
 <?php
-require_once ('../view/footer.html');
+require_once ('modelos/footer.html');
 ?>

@@ -2,12 +2,12 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
 
 ?>
 
-<body>
-    <main>
+
+<?php require_once ('modelos/header.html'); ?>
+
         <h1>Avaliação/Teste</h1>
         <h2 class="subtitle">Aplicar um novo teste ou avaliar um teste já aplicado?</h2>
         <div class="buttonGrande-container">
@@ -34,5 +34,5 @@ require_once ('../view/header.html');
     </script>
 
     <?php
-    require_once ('../view/footer.html');
+    require_once ('modelos/footer.html');
     ?>

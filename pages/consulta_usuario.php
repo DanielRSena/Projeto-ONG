@@ -1,10 +1,9 @@
 <?php
-include('../verificar_session.php');
-include('../consulta/consulta_usuario.php');
-verificar('../view/view.php', 'login.php');
-require_once('../view/view.php');
-require_once('../view/header.html');
-require_once('../database.php');
+  include('../verificar_session.php');
+  include('../consulta/consulta_usuario.php');
+  verificar('../view/view.php', 'login.php');
+  require_once('../view/view.php');
+  require_once('../database.php');
 
 
 $banco_dados = new Database;
@@ -42,22 +41,7 @@ if ($conexao !== false) {
   View::alert("Erro ao conectar com banco de dados");
 ?>
 
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<link rel="stylesheet" href="../view/style.css">
-</head>
-
-<body>
-
-  <br><br>
+<?php require_once('modelos/header.html'); ?>
 
   <h1>usuarios</h1>
 
@@ -69,7 +53,7 @@ if ($conexao !== false) {
         <th>Login</th>
         <th>Senha</th>
         <th>Tipo de usuário</th>
-        <th>Nome</th> 
+        <th>Cpf</th> 
         <th></th>
       </tr>
       <?php
@@ -77,12 +61,12 @@ if ($conexao !== false) {
         foreach ($usuarios as $usuario) {
           echo "<tr>";
           echo "<td>" . $usuario['login'] . "</td>";
-          echo "<td>" . $usuario['senha_hash'] . "</td>";
+          echo "<td>" . $usuario['senha'] . "</td>";
 
           if ($usuario['admin'] == 0) echo "<td> Comum</td>";
           else echo "<td> Administrador</td>";
 
-          echo "<td>" . $usuario['nome'] . "</td>";
+          echo "<td>" . $usuario['cpf'] . "</td>";
 
           echo "<td><a href='../alteracao/alteracao_usuario.php?login=" . $usuario['login'] . "'> <i class='fas fa-pencil-alt'></i>&nbsp; Alterar</a></td>";
 
@@ -95,10 +79,4 @@ if ($conexao !== false) {
     </table>
   </div>
 
-  <?php
-  require_once('../view/footer.html');
-  ?>
-
-</body>
-
-</html>
+  <?php require_once('modelos/footer.html'); ?>

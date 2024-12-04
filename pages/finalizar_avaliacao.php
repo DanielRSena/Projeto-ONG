@@ -2,7 +2,6 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
 require_once ('../database.php'); // Arquivo para conectar ao banco de dados
 
 $banco_dados = new Database;
@@ -14,6 +13,8 @@ $id_avaliacao = $_POST['id_avaliacao_selecionada'];
 $conexao->close();
 ?>
 
+
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -21,9 +22,10 @@ $conexao->close();
         padding: 0;
         background-color: #f4f4f4;
         color: #333;
+        height: 100vh;
     }
 
-    .container {
+    .containerAvaliacao {
         width: 60%;
         margin: 0 auto;
         padding: 20px;
@@ -149,8 +151,10 @@ $conexao->close();
     }
 </style>
 
-<body>
-    <div class="container">
+
+<?php require_once('modelos/header.html') ?>
+
+    <div class="containerAvaliacao">
         <h1>Finalização da avaliação</h1>
 
         <div class="section">
@@ -353,5 +357,5 @@ $conexao->close();
 </body>
 
 <?php
-require_once ('../view/footer.html');
+require_once ('modelos/footer.html');
 ?>

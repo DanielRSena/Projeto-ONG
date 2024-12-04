@@ -2,10 +2,7 @@
 include ('../verificar_session.php');
 verificar('../view/view.php', 'login.php');
 require_once ('../view/view.php');
-require_once ('../view/header.html');
-
 require_once('../database.php');
-
 
 $banco_dados = new Database;
 $conexao = $banco_dados->abrir_conexao();
@@ -46,47 +43,37 @@ if ($conexao !== false) {
 
 } else
     View::alert("Erro ao conectar com banco de dados");
-
-
-
 ?>
 
-<main>
-    <div class="dados" id='container'>
-        <h2>Cadastro de usuário do sistema</h2>
-        <form action="../cadastro/processar_cadastro_usuario.php" method="POST">
+<?php require_once ('modelos/header.html'); ?>
 
-            <label for="nome-usuario">Nome do usuário:</label>
-            <input type="text" id="nome-usuario" name="nome-usuario" required>
+<div class="dados" id='container'>
+    <h2>Cadastro de usuário do sistema</h2>
+    <form action="../cadastro/processar_cadastro_usuario.php" method="POST">
 
-            <label for="login-usuario">Login:</label>
-            <input type="text" id="login-usuario" name="login-usuario" required>
+        <label for="nome-usuario">Nome do usuário:</label>
+        <input type="text" id="nome-usuario" name="nome-usuario" required>
 
-            <label for="senha-usuario">Senha:</label>
-            <input type="password" id="senha-usuario" name="senha-usuario" required>
+        <label for="login-usuario">Login:</label>
+        <input type="text" id="login-usuario" name="login-usuario" required>
 
-            <label for="senha2-usuario">Repetir senha:</label>
-            <input type="password" id="senha2-usuario" name="senha2-usuario" required>
+        <label for="senha-usuario">Senha:</label>
+        <input type="password" id="senha-usuario" name="senha-usuario" required>
 
-            <div class="gender-container">
-                <label>Cadastrar usuário administrador?</label>
-                <input type="radio" id="admin-sim" name="admin" value=1 required>
-                <label for="admin-sim">Sim</label>
-                <input type="radio" id="admin-nao" name="admin" value=0 required>
-                <label for="admin-nao">Não</label>
-            </div>
-            <div class="button-container">
-                <button type="submit" class="button">Cadastrar</button>
-            </div>
-        </form>
-    </div>
-</main>
+        <label for="senha2-usuario">Repetir senha:</label>
+        <input type="password" id="senha2-usuario" name="senha2-usuario" required>
 
+        <div class="gender-container">
+            <label>Cadastrar usuário administrador?</label>
+            <input type="radio" id="admin-sim" name="admin" value=1 required>
+            <label for="admin-sim">Sim</label>
+            <input type="radio" id="admin-nao" name="admin" value=0 required>
+            <label for="admin-nao">Não</label>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="button">Cadastrar</button>
+        </div>
+    </form>
+</div>
 
-<script>
-
-</script>
-
-<?php
-require_once ('../view/footer.html');
-?>
+<?php require_once ('modelos/footer.html'); ?>
